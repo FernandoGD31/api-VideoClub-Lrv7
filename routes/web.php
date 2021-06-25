@@ -36,4 +36,4 @@ Route::post('/EditarCliente/{id}', 'ApiController@EditarCliente');
 Route::get('/MostrarIdioma/{idioma}', 'ApiController@MostrarIdioma');
 Route::get('/MostrarCap/{nombre}', 'ApiController@MostrarTempoCap');
 Route::get('/Mostrarestreno', 'ApiController@MostrarEstreno');
-Route::get('/MostrarSeriesIdioma/{idioma}', 'ApiController@MostrarSeries');
+Route::get('/MostrarSeriesIdioma/{idioma}', 'ApiController@MostrarSeriesIdioma');
