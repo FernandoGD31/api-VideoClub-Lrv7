@@ -268,6 +268,131 @@ class ApiController extends Controller
  
  
 
+     //////////////
+     public function MostrarIdioma($idioma){
+        try {
+
+            $datos = DB::select("SELECT * FROM contenido Where idioma= '{$idioma}'");
+            return $datos;
+
+        } catch (\Throwable $th) {
+            return "no exiten contenido en ese idioma" . $th;
+        }
+        return "ERROR";
+    }
+
+    public function MostrarTempoCap($nombre){
+        try {
+
+            $datos = DB::select("SELECT nombre, temporadas, capitulos FROM contenido Where nombre= '{$nombre}' and temporadas >=0");
+            return $datos;
+
+        } catch (\Throwable $th) {
+            return "no exiten contenido en ese idioma" . $th;
+        }
+        return "ERROR";
+    }
+
+
+
+    public function MostrarCliente()
+    {
+        try {
+            $data = DB::select("SELECT * FROM cliente");
+            return $data;
+        } catch (\Throwable $th) {
+            return "ERROR AL MOSTRAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+    public function RegistrarCliente(Request $request)
+    {
+        $nombre = $request->get("nombre");
+        $apellido_p = $request->get("apellido_p");
+        $apellido_m = $request->get("apellido_m");
+        $correo = $request->get("correo");
+        $edad = $request->get("edad");
+        $sexo = $request->get("sexo");
+        $fecha_registro = $request->get("fecha_registro");
+       
+
+
+        try {
+            DB::insert("INSERT INTO cliente VALUES 
+            (NULL,
+            '{$nombre}',
+            '{$apellido_p}',
+            '{$apellido_m}',
+            '{$correo}',           
+            '{$edad}',
+            '{$sexo}',
+            {$fecha_registro}
+            )");
+            return "Registro exitoso";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR" . $th;
+        }
+        return "ERROR";
+    }
+
+
+    public function EditarCliente(Request $request, $id)
+    {
+        $nombre = $request->get("nombre");
+        $apellido_p = $request->get("apellido_p");
+        $apellido_m = $request->get("apellido_m");
+        $correo = $request->get("correo");
+        $edad = $request->get("edad");
+        $sexo = $request->get("sexo");
+        $fecha_registro = $request->get("fecha_registro");
+
+        try {
+            DB::insert( "UPDATE cliente SET 
+            nombre = ?,  
+            apellido_p = ?,  
+            apellido_m = ?,  
+            correo = ?,  
+            edad = ?,  
+            sexo = ?,  
+            fecha_registro = ? WHERE id = ?",
+
+                [$nombre, $apellido_p, $apellido_m, $correo, $edad, $sexo, $fecha_registro, $id]
+            );
+            return "Actualizacion exitosa";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+
+    public function MostrarEstreno()
+    {
+        try {
+            $data = DB::select("Select * from contenido WHERE fecha_estreno > curdate()");
+            return $data;
+        } catch (\Throwable $th) {
+            return "ERROR AL MOSTRAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+    
+    public function MostrarSeries($idioma)
+    {
+        try {
+            $data = DB::select("Select nombre, genero, temporadas, capitulos from contenido WHERE idioma='{$idioma}' and temporadas > 0");
+            return $data;
+        } catch (\Throwable $th) {
+            return "ERROR AL MOSTRAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+
+
+
 
 
     /**
