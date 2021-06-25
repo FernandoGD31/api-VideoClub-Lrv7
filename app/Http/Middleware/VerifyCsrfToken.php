@@ -18,6 +18,12 @@ class VerifyCsrfToken extends Middleware
         '/MostrarContenido',
         '/MostrarContenidoId/*',
         '/MostrarPeliculas',
-        '/MostrarSeries'
+        '/MostrarSeries',
+        '/GeneroPelicula/*',
+        '/GeneroSerie/*',
+        '/Calificacion/*',
+        '/Director/*',
+        '/Actor/*',
+        '/Sinopsis/*'
     ];
 }

@@ -179,6 +179,95 @@ class ApiController extends Controller
         return "ERROR";
     }
 
+     // /GeneroPelicula/{genero}
+     public function GeneroPelicula($genero)
+     {
+         
+         try {
+            $data2 = DB::select("SELECT nombre, genero from contenido WHERE genero = '{$genero}'");
+             return $data2;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+         
+     }
+     
+ 
+     //GeneroSeries/{genero}
+     public function GeneroSerie($genero)
+     {
+         
+         try {
+            $data3 = DB::select("SELECT *  from contenido WHERE genero = '{$genero}' and temporadas  > 0");
+             return $data3;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+         
+     }
+ 
+ 
+     //calificacion/{nombreContenido}
+     public function Calificacion($nombre)
+     {
+         
+         try {
+            $data4 = DB::select("SELECT nombre, calificacion from contenido WHERE nombre = '{$nombre}'");
+             return $data4;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+         
+     }
+ 
+     //Director/{nombreContenido}
+      
+     public function Director($nombre)
+     {
+         try {
+            $data5 = DB::select("SELECT * from director where id =(SELECT director_id from contenido where nombre = '{$nombre}' )");
+             return $data5;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+         
+     }
+    
+ 
+     //Actor/{NombreContenido}
+         public function Actor($nombre)
+         {
+         try {
+            $data6 = DB::select("SELECT * FROM actor WHERE id IN (SELECT actor_id from actores_contenido WHERE  contenido_id = (SELECT id FROM contenido WHERE nombre = '$nombre'))");
+             return $data6;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+         
+         }
+       
+         
+     // sinopsis/{nombreContenido}
+     public function Sinopsis($nombre)
+     {
+         
+         try {
+             $data7 = DB::select("SELECT nombre, sinopsis from contenido WHERE nombre = '{$nombre}'");
+             return $data7;
+         } catch (\Throwable $th) {
+            
+         }
+         return"Error al obtener";
+ 
+     }
+ 
+ 
+
 
 
     /**
