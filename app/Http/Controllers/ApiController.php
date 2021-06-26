@@ -179,114 +179,102 @@ class ApiController extends Controller
         return "ERROR";
     }
 
-     // /GeneroPelicula/{genero}
-     public function GeneroPelicula($genero)
-     {
-         
-         try {
-            $data2 = DB::select("SELECT nombre, genero from contenido WHERE genero = '{$genero}'");
-             return $data2;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
-         
-     }
-     
- 
-     //GeneroSeries/{genero}
-     public function GeneroSerie($genero)
-     {
-         
-         try {
-            $data3 = DB::select("SELECT *  from contenido WHERE genero = '{$genero}' and temporadas  > 0");
-             return $data3;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
-         
-     }
- 
- 
-     //calificacion/{nombreContenido}
-     public function Calificacion($nombre)
-     {
-         
-         try {
-            $data4 = DB::select("SELECT nombre, calificacion from contenido WHERE nombre = '{$nombre}'");
-             return $data4;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
-         
-     }
- 
-     //Director/{nombreContenido}
-      
-     public function Director($nombre)
-     {
-         try {
-            $data5 = DB::select("SELECT * from director where id =(SELECT director_id from contenido where nombre = '{$nombre}' )");
-             return $data5;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
-         
-     }
-    
- 
-     //Actor/{NombreContenido}
-         public function Actor($nombre)
-         {
-         try {
-            $data6 = DB::select("SELECT * FROM actor WHERE id IN (SELECT actor_id from actores_contenido WHERE  contenido_id = (SELECT id FROM contenido WHERE nombre = '$nombre'))");
-             return $data6;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
-         
-         }
-       
-         
-     // sinopsis/{nombreContenido}
-     public function Sinopsis($nombre)
-     {
-         
-         try {
-             $data7 = DB::select("SELECT nombre, sinopsis from contenido WHERE nombre = '{$nombre}'");
-             return $data7;
-         } catch (\Throwable $th) {
-            
-         }
-         return"Error al obtener";
- 
-     }
- 
- 
+    // /GeneroPelicula/{genero}
+    public function GeneroPelicula($genero)
+    {
 
-     //////////////
-     public function MostrarIdioma($idioma){
+        try {
+            $data2 = DB::select("SELECT nombre, genero from contenido WHERE genero = '{$genero}'");
+            return $data2;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+
+    //GeneroSeries/{genero}
+    public function GeneroSerie($genero)
+    {
+
+        try {
+            $data3 = DB::select("SELECT *  from contenido WHERE genero = '{$genero}' and temporadas  > 0");
+            return $data3;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+
+    //calificacion/{nombreContenido}
+    public function Calificacion($nombre)
+    {
+
+        try {
+            $data4 = DB::select("SELECT nombre, calificacion from contenido WHERE nombre = '{$nombre}'");
+            return $data4;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+    //Director/{nombreContenido}
+
+    public function Director($nombre)
+    {
+        try {
+            $data5 = DB::select("SELECT * from director where id =(SELECT director_id from contenido where nombre = '{$nombre}' )");
+            return $data5;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+
+    //Actor/{NombreContenido}
+    public function Actor($nombre)
+    {
+        try {
+            $data6 = DB::select("SELECT * FROM actor WHERE id IN (SELECT actor_id from actores_contenido WHERE  contenido_id = (SELECT id FROM contenido WHERE nombre = '$nombre'))");
+            return $data6;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+
+    // sinopsis/{nombreContenido}
+    public function Sinopsis($nombre)
+    {
+
+        try {
+            $data7 = DB::select("SELECT nombre, sinopsis from contenido WHERE nombre = '{$nombre}'");
+            return $data7;
+        } catch (\Throwable $th) {
+        }
+        return "Error al obtener";
+    }
+
+
+
+    //////////////
+    public function MostrarIdioma($idioma)
+    {
         try {
 
-            $datos = DB::select("SELECT * FROM contenido Where idioma= '{$idioma}'");
+            $datos = DB::select("SELECT * FROM contenido Where idioma= '{$idioma}' and temporadas is NULL");
             return $datos;
-
         } catch (\Throwable $th) {
             return "no exiten contenido en ese idioma" . $th;
         }
         return "ERROR";
     }
 
-    public function MostrarTempoCap($nombre){
+    public function MostrarTempoCap($nombre)
+    {
         try {
 
             $datos = DB::select("SELECT nombre, temporadas, capitulos FROM contenido Where nombre= '{$nombre}' and temporadas >=0");
             return $datos;
-
         } catch (\Throwable $th) {
             return "no exiten contenido en ese idioma" . $th;
         }
@@ -315,7 +303,7 @@ class ApiController extends Controller
         $edad = $request->get("edad");
         $sexo = $request->get("sexo");
         $fecha_registro = $request->get("fecha_registro");
-       
+
 
 
         try {
@@ -348,7 +336,8 @@ class ApiController extends Controller
         $fecha_registro = $request->get("fecha_registro");
 
         try {
-            DB::insert( "UPDATE cliente SET 
+            DB::insert(
+                "UPDATE cliente SET 
             nombre = ?,  
             apellido_p = ?,  
             apellido_m = ?,  
@@ -370,7 +359,7 @@ class ApiController extends Controller
     public function MostrarEstreno()
     {
         try {
-            $data = DB::select("Select * from contenido WHERE fecha_estreno > curdate()");
+            $data = DB::select("SELECT * from contenido WHERE fecha_estreno > curdate()");
             return $data;
         } catch (\Throwable $th) {
             return "ERROR AL MOSTRAR ---->" . $th;
@@ -378,7 +367,7 @@ class ApiController extends Controller
         return "ERROR";
     }
 
-    
+
     public function MostrarSeriesIdioma($idioma)
     {
         try {
@@ -390,45 +379,47 @@ class ApiController extends Controller
         return "ERROR";
     }
 
-public function listarClientes()
+
+    // Codigo cris
+
+    public function listarClientes()
     {
-         
-       try {
-        $clientes = DB::select("SELECT * FROM cliente");
-        return $clientes;
-       } catch (Exception $e) {
-        return "Error";
-       }
+
+        try {
+            $clientes = DB::select("SELECT * FROM cliente");
+            return $clientes;
+        } catch (\Throwable $e) {
+            return "Error";
+        }
     }
 
-      public function mostrarClienteId($id)
+    public function mostrarClienteId($id)
     {
         try {
-        $clientes = DB::select("SELECT * FROM cliente WHERE id={id}");
-        return $clientes;
-       } catch (Exception $e) {
-        return "Error";
-       }
-       
+            $clientes = DB::select("SELECT * FROM cliente WHERE id={$id}");
+            return $clientes;
+        } catch (\Throwable $e) {
+            return "Error";
+        }
     }
 
     public function eliminarCliente($id)
     {
-       try {
-        DB::delete("DELETE FROM cliente WHERE id = {$id}");
+        try {
+            DB::delete("DELETE FROM cliente WHERE id = {$id}");
             return "Eliminacion exitosa";
-       } catch (Exception $e) {
-        return "Error";
-       }
+        } catch (\Throwable $e) {
+            return "Error";
+        }
     }
-    
-       
-    public function rentaContenido($id_c,$id_con,Request $request)
+
+
+    public function rentaContenido($id_c, $id_con, Request $request)
     {
         $numero_tarjeta = $request->get("numero_tarjeta");
         $fecha_exp = $request->get("fecha_exp");
         $codigo_seg = $request->get("codigo_seg");
-       try {
+        try {
             DB::insert("INSERT INTO pago VALUES 
             (NULL,
             '{$numero_tarjeta}',
@@ -439,32 +430,28 @@ public function listarClientes()
             try {
                 $id_p = DB::select("SELECT MAX(id) as maximo FROM pago");
                 try {
-                    $id_p=$id_p[0]->maximo;
+                    $id_p = $id_p[0]->maximo;
                     //var_dump($id_p[0]->maximo);
                     DB::insert("INSERT INTO renta VALUES (NULL,'{$id_p}','{$id_con}')");
                     return "RENTA COMPLETADA";
-                } catch (Exception $e) {
-                    return "ERROR" . $th;
+                } catch (\Throwable $e) {
+                    return "ERROR" . $e;
                 }
-            } catch (Exception $e) {
-                return "ERROR" . $th;
+            } catch (\Throwable $e) {
+                return "ERROR" . $e;
             }
         } catch (\Throwable $th) {
             return "ERROR AL INSERTAR" . $th;
         }
-
-
     }
     public function contenidoRentado($id)
     {
-          try {
-            $data=DB::select("select* from contenido join renta on renta.contenido_id= contenido.id join pago on renta.pago_id= pago.id where cliente_id={$id}");
+        try {
+            $data = DB::select("select* from contenido join renta on renta.contenido_id= contenido.id join pago on renta.pago_id= pago.id where cliente_id={$id}");
             return $data;
-          } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return "ERROR";
-          }
-        
-
+        }
     }
 
 
