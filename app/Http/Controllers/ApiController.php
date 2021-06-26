@@ -382,7 +382,7 @@ class ApiController extends Controller
     public function MostrarSeriesIdioma($idioma)
     {
         try {
-            $data = DB::select("Select nombre, genero, temporadas, capitulos from contenido WHERE idioma='{$idioma}' and temporadas > 0");
+            $data = DB::select("SELECT * from contenido WHERE idioma='{$idioma}' and temporadas > 0");
             return $data;
         } catch (\Throwable $th) {
             return "ERROR AL MOSTRAR ---->" . $th;
