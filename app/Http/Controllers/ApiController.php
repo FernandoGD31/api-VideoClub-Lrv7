@@ -390,6 +390,82 @@ class ApiController extends Controller
         return "ERROR";
     }
 
+public function listarClientes()
+    {
+         
+       try {
+        $clientes = DB::select("SELECT * FROM cliente");
+        return $clientes;
+       } catch (Exception $e) {
+        return "Error";
+       }
+    }
+
+      public function mostrarClienteId($id)
+    {
+        try {
+        $clientes = DB::select("SELECT * FROM cliente WHERE id={id}");
+        return $clientes;
+       } catch (Exception $e) {
+        return "Error";
+       }
+       
+    }
+
+    public function eliminarCliente($id)
+    {
+       try {
+        DB::delete("DELETE FROM cliente WHERE id = {$id}");
+            return "Eliminacion exitosa";
+       } catch (Exception $e) {
+        return "Error";
+       }
+    }
+    
+       
+    public function rentaContenido($id_c,$id_con,Request $request)
+    {
+        $numero_tarjeta = $request->get("numero_tarjeta");
+        $fecha_exp = $request->get("fecha_exp");
+        $codigo_seg = $request->get("codigo_seg");
+       try {
+            DB::insert("INSERT INTO pago VALUES 
+            (NULL,
+            '{$numero_tarjeta}',
+            '{$fecha_exp}',
+            '{$codigo_seg}',
+            '{$id_c}'
+            )");
+            try {
+                $id_p = DB::select("SELECT MAX(id) as maximo FROM pago");
+                try {
+                    $id_p=$id_p[0]->maximo;
+                    //var_dump($id_p[0]->maximo);
+                    DB::insert("INSERT INTO renta VALUES (NULL,'{$id_p}','{$id_con}')");
+                    return "RENTA COMPLETADA";
+                } catch (Exception $e) {
+                    return "ERROR" . $th;
+                }
+            } catch (Exception $e) {
+                return "ERROR" . $th;
+            }
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR" . $th;
+        }
+
+
+    }
+    public function contenidoRentado($id)
+    {
+          try {
+            $data=DB::select("select* from contenido join renta on renta.contenido_id= contenido.id join pago on renta.pago_id= pago.id where cliente_id={$id}");
+            return $data;
+          } catch (Exception $e) {
+            return "ERROR";
+          }
+        
+
+    }
 
 
 
