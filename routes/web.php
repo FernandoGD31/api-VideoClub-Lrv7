@@ -44,3 +44,11 @@ Route::get('/EliminarCliente/{id}', 'ApiController@eliminarCliente');
 Route::post('/RentaContenido/{id_c}/{id_con}', 'ApiController@rentaContenido');
 Route::get('/ContenidoRentado/{id}', 'ApiController@contenidoRentado');
 
+
+Route::post('/RegistrarDirector', 'ApiController@RegistrarDirector');
+Route::get('/EliminarDirector/{id}', 'ApiController@EliminarDirector');
+Route::post('/RegistrarActor', 'ApiController@RegistrarActor');
+Route::get('/EliminarActor/{id}', 'ApiController@EliminarActor');
+Route::post('/RegistrarActorContenido', 'ApiController@RegistrarActorContenido');
+Route::get('/MostrarDirectores', 'ApiController@MostrarDirectores');
+Route::get('/MostrarActores', 'ApiController@MostrarActores');

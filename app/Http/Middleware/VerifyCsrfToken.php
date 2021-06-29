@@ -35,6 +35,16 @@ class VerifyCsrfToken extends Middleware
         '/MostrarClienteId/*', 
         '/EliminarCliente/*',
         '/RentaContenido/*/*', 
-        '/ContenidoRentado/*'
+        '/ContenidoRentado/*',
+
+        '/RegistrarDirector',
+        '/EliminarDirector/*',
+        '/RegistrarActor',
+        '/EliminarActor/*',
+        '/RegistrarActorContenido',
+        '/MostrarDirectores',
+        '/MostrarActores',
+
+        
     ];
 }

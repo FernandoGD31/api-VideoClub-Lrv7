@@ -38,6 +38,123 @@ class ApiController extends Controller
     }
 
 
+    //Registrar actores a contenido
+    //RegistrarDirector
+    public function RegistrarActorContenido(Request $request)
+    {
+        $actor_id = $request->get("actor_id");
+        $contenido_id = $request->get("contenido_id");
+
+
+        try {
+            DB::insert("INSERT INTO actores_contenido VALUES 
+            (NULL,
+            {$actor_id},
+            {$contenido_id},
+                    
+            )");
+            return "Registro exitoso";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR" . $th;
+        }
+        return "ERROR";
+    }
+
+    //RegistrarDirector
+    public function RegistrarDirector(Request $request)
+    {
+        $nombre = $request->get("nombre");
+        $apellido = $request->get("apellido");
+        $fecha_nac = $request->get("fecha_nac");
+        $sexo = $request->get("sexo");
+
+        try {
+            DB::insert("INSERT INTO director VALUES 
+            (NULL,
+            '{$nombre}',
+            '{$apellido}',
+            '{$fecha_nac}',
+            '{$sexo}'           
+ 
+            )");
+            return "Registro exitoso";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR" . $th;
+        }
+        return "ERROR";
+    }
+    //EliminarDirector
+    public function EliminarDirector($id)
+    {
+        try {
+            DB::delete("DELETE FROM director WHERE id = {$id}");
+            return "Eliminacion exitosa";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+    //RegistrarDirector
+    public function RegistrarActor(Request $request)
+    {
+
+        $nombre = $request->get("nombre");
+        $apellido = $request->get("apellido");
+        $fecha_nac = $request->get("fecha_nac");
+        $sexo = $request->get("sexo");
+
+        try {
+            DB::insert("INSERT INTO actor VALUES 
+            (NULL,
+            '{$nombre}',
+            '{$apellido}',
+            '{$fecha_nac}',
+            '{$sexo}'           
+ 
+            )");
+            return "Registro exitoso";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR" . $th;
+        }
+        return "ERROR";
+    }
+    //EliminarDirector
+    public function EliminarActor($id)
+    {
+        try {
+            DB::delete("DELETE FROM actor WHERE id = {$id}");
+            return "Eliminacion exitosa";
+        } catch (\Throwable $th) {
+            return "ERROR AL INSERTAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+    // Mostrar Directores
+    public function MostrarDirectores()
+    {
+        try {
+            $data = DB::select("SELECT * FROM director");
+            return $data;
+        } catch (\Throwable $th) {
+            return "ERROR AL MOSTRAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+    // Mostrar Actores
+    public function MostrarActores()
+    {
+        try {
+            $data = DB::select("SELECT * FROM actor");
+            return $data;
+        } catch (\Throwable $th) {
+            return "ERROR AL MOSTRAR ---->" . $th;
+        }
+        return "ERROR";
+    }
+
+
 
     //    /RegistrarContenido
     public function RegistrarContenido(Request $request)
